@@ -1,3 +1,4 @@
-[
-
-]
+[{
+    "caption": "Send to Shell: Send text",
+    "command": "sendtoshell"
+}]

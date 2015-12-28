@@ -2,6 +2,7 @@ import sublime
 import sublime_plugin
 
 try:
+    import Pywin32.setup
     from win32con import WM_KEYDOWN, WM_KEYUP, VK_RETURN, WM_CHAR
     from win32gui import FindWindow, PostMessage
     from win32api import SendMessage
