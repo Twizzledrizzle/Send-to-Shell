@@ -2,6 +2,8 @@
 
 _Send to Shell_ is a free plugin for [Sublime Text](http://www.sublimetext.com/) on Windows, to work nicely together with an external terminal running IPython.
 
+![Imgur](http://i.imgur.com/7o7jtO8.gif?1)
+
 ## Prerequsites ##
 You need to install [Pywin32](https://packagecontrol.io/packages/Pywin32) before using this package, since _Send to Shell_ uses some windows API's to access your terminal shell.
 
