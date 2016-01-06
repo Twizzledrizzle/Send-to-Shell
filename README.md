@@ -10,19 +10,23 @@ You need to install [Pywin32](https://packagecontrol.io/packages/Pywin32) before
 ## Features ##
 
 - Puts selected text into clipboard memory, and sends by default `%Paste` to the specified terminal shell (referenced by window title).
+	- (ctrl-shift-enter)
+- Also possible to run the entire file (Puts '%run ' + file_path into clipboard memory and sends it to the terminal shell)
+	- (ctrl-shift-b)
 - Shells tested
 	1 PowerShell
 	2 Command Prompt
 	3 ConEmu
 - Edit _Send to Shell_'s settings to change the following (default in ()):
 	* The window title to search for ('Windows PowerShell')
+	* The command to run an entire script ('%run')
 	* The command to run in the shell to paste the text ('%paste')
 	* The command to run if no terminal is found ('powershell')
 	* The command to start python ('ipython')
 
 
 ## Releases ##
-- 1.0.0
+- 0.1.0
 
 ## Installation ##
 

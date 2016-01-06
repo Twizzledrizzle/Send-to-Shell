@@ -1,3 +1,4 @@
 [
-	{ "keys": ["ctrl+shift+enter"], "command": "sendtoshell" }
+	{ "keys": ["ctrl+shift+enter"], "command": "sendtoshell", "args": {"how": "paste_selection"}},
+	{ "keys": ["ctrl+shift+b"], "command": "sendtoshell" , "args": {"how": "run_file"}}
 ]

@@ -1,4 +1,9 @@
-[{
-    "caption": "Send to Shell: Send text",
-    "command": "sendtoshell"
-}]
+[
+	{"caption": "Send to Shell: Send text",
+     "command": "sendtoshell",
+     "args": {"how": "paste_selection"}},
+
+    {"caption": "Send to Shell: Run file",
+     "command": "sendtoshell",
+     "args": {"how": "run_file"}}
+]

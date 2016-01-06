@@ -1,5 +1,6 @@
 import sublime
 import sublime_plugin
+import subprocess
 
 try:
     import Pywin32.setup
@@ -27,6 +28,9 @@ class SendtoshellCommand(sublime_plugin.TextCommand):
     def string_to_paste(self):
         return settings().get("string_to_paste")
 
+    def string_to_run(self):
+        return settings().get("string_to_run")
+
     def powershell_startup(self):
         return settings().get("powershell_startup")
 
@@ -36,10 +40,10 @@ class SendtoshellCommand(sublime_plugin.TextCommand):
     def window_title(self):
         return settings().get("window_title")
 
-    def run(self, edit):
-        self.send_to_powershell(self.string_to_paste())
+    def run(self, edit, how):
+        self.send_to_powershell(how)
 
-    def send_to_powershell(self, msg):
+    def send_to_powershell(self, how):
         hwnd = FindWindow(None, self.window_title())
         if hwnd == 0:
             # no window available? Try to open a new instance
@@ -52,16 +56,24 @@ class SendtoshellCommand(sublime_plugin.TextCommand):
                 return None
             self._sendmsg(hwnd, self.python_startup())
             sleep(1.0)
-        # now send selected text
-        for region in self.view.sel():
-            if not region.empty():
-                # Get the selected text
-                s = self.view.substr(region)
-                print('Sendtoshell - pasting, make sure you `keyup` ' +
-                      'within 0.3 seconds!')
-                sleep(0.3)
-                sublime.set_clipboard(s)
-                self._sendmsg(hwnd, msg)
+        if how == 'run_file':
+            print('Sendtoshell - running entire file, make sure you `keyup` ' +
+                  'within 0.4 seconds!')
+            sleep(0.4)
+            string_to_type = self.string_to_run() + ' "' + sublime.active_window().active_view().file_name() + '"'
+            sublime.set_clipboard(string_to_type)
+            self._sendmsg(hwnd, self.string_to_paste())
+        else:
+            # send selected text
+            for region in self.view.sel():
+                if not region.empty():
+                    # Get the selected text
+                    selected_text = self.view.substr(region)
+                    print('Sendtoshell - pasting, make sure you `keyup` ' +
+                          'within 0.4 seconds!')
+                    sleep(0.4)
+                    sublime.set_clipboard(selected_text)
+                    self._sendmsg(hwnd, self.string_to_paste())
 
     def _sendmsg(self, hwnd, msg):
         for character in msg:
@@ -71,3 +83,4 @@ class SendtoshellCommand(sublime_plugin.TextCommand):
                         0)
         PostMessage(hwnd, WM_KEYDOWN, VK_RETURN, int('0x1C0001', 0))
         PostMessage(hwnd, WM_KEYUP, VK_RETURN, int('0xC0000001', 0))
+

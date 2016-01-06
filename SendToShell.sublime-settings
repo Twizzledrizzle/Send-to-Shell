@@ -1,5 +1,6 @@
 {
     "string_to_paste": "%paste",
+    "string_to_run": "%run",
     "window_title": "Windows PowerShell",
     "powershell_startup": "powershell",
     "python_startup": "ipython"
