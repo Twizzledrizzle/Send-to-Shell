@@ -121,8 +121,7 @@ class SendtoshellCommand(sublime_plugin.TextCommand):
                       'within 0.4 seconds!')
                 sleep(0.4)
                 if settings().get("send_right_click") == 'True':
-                    if settings().get("useCR") == 'True':
-                        selected_text = '\r'.join(selected_text.split('\n'))
+                    selected_text = '\r'.join(selected_text.split('\n')) # somehow works with Linux/Windows target
                     self._sendRclick(hwnd, selected_text)
                 else:
                     sublime.set_clipboard(selected_text)
