@@ -42,7 +42,7 @@ def find_suspects(view=None):
     suspects = []
     titles = enum_window_titles()
     for handle, (title, classname) in sorted(titles.items(), key=lambda x: x[1][0]):
-        if classname in ("ConsoleWindowClass", "PuTTY"): # look for cmd, wsl, PuTTy
+        if classname in ("ConsoleWindowClass", "PuTTY", "mintty"): # look for cmd/powershell/wsl, PuTTy, MINGW
             suspects.append('{0}: {1}'.format(handle, title))
         if title.endswith("- Sublime Text") and classname == "PX_WINDOW_CLASS":
             subl_handle = int(handle) # assuming only one sublime instance
