@@ -4,5 +4,6 @@
     "window_title": "Windows PowerShell",
     "powershell_startup": "powershell",
     "python_startup": "ipython",
-    "send_right_click": "True"
+    "send_right_click": "True",
+    "useCR": "False"
 }

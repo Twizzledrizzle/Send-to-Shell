@@ -121,6 +121,8 @@ class SendtoshellCommand(sublime_plugin.TextCommand):
                       'within 0.4 seconds!')
                 sleep(0.4)
                 if settings().get("send_right_click") == 'True':
+                    if settings().get("useCR") == 'True':
+                        selected_text = '\r'.join(selected_text.split('\n'))
                     self._sendRclick(hwnd, selected_text)
                 else:
                     sublime.set_clipboard(selected_text)
@@ -139,15 +141,15 @@ class SendtoshellCommand(sublime_plugin.TextCommand):
         # IPython magic %paste does not work for remote ssh python 
         # or Windows Subsystem for Linux, so let's send right click using win32
         def _pasting(hwnd, msg):
-                sublime.set_clipboard(msg)
-                sleep(0.1) # important!
-                # sending right-click to paste over
-                mouse_event(MOUSEEVENTF_RIGHTDOWN|MOUSEEVENTF_ABSOLUTE, 0, 0)
-                sleep(0.1) # important!
-                mouse_event(MOUSEEVENTF_RIGHTUP|MOUSEEVENTF_ABSOLUTE, 0, 0)
-                # send enter;  int('0x1C0001', 0) works both on WSL and cmd
-                PostMessage(hwnd, WM_KEYDOWN, VK_RETURN, int('0x1C0001', 0))
-                PostMessage(hwnd, WM_KEYUP, VK_RETURN, int('0xC0000001', 0))
+            sublime.set_clipboard(msg)
+            sleep(0.1) # important!
+            # sending right-click to paste over
+            mouse_event(MOUSEEVENTF_RIGHTDOWN|MOUSEEVENTF_ABSOLUTE, 0, 0)
+            sleep(0.1) # important!
+            mouse_event(MOUSEEVENTF_RIGHTUP|MOUSEEVENTF_ABSOLUTE, 0, 0)
+            # send enter;  int('0x1C0001', 0) works both on WSL and cmd
+            PostMessage(hwnd, WM_KEYDOWN, VK_RETURN, int('0x1C0001', 0))
+            PostMessage(hwnd, WM_KEYUP, VK_RETURN, int('0xC0000001', 0))
 
         try:
             # https://stackoverflow.com/a/15503675/566035
@@ -169,7 +171,7 @@ class SendtoshellCommand(sublime_plugin.TextCommand):
         # we need to use %cpaste magic to avoid indentation error
         # in case more than 2 lines have indentation.
         if lineN > 2:
-            _pasting(hwnd, "%cpaste")
+            _pasting(hwnd, r"%cpaste")
             _pasting(hwnd, msg)
             _pasting(hwnd, "--")
         else:
