@@ -5,5 +5,9 @@
 
     {"caption": "Send to Shell: Run file",
      "command": "sendtoshell",
-     "args": {"how": "run_file"}}
+     "args": {"how": "run_file"}},
+
+    {"caption": "Send to Shell: Select shell",
+     "command": "sendtoshell",
+     "args": {"how": "select_shell"}}
 ]
