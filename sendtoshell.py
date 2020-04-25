@@ -133,6 +133,7 @@ class SendtoshellCommand(sublime_plugin.TextCommand):
                         WM_CHAR,
                         ord(character),
                         0)
+        sleep(0.1) # important!
         PostMessage(hwnd, WM_KEYDOWN, VK_RETURN, int('0x1C0001', 0))
         PostMessage(hwnd, WM_KEYUP, VK_RETURN, int('0xC0000001', 0))
 
